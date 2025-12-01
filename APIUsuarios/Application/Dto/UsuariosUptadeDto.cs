@@ -1,3 +1,4 @@
+namespace APIUsuarios.Application.Dto;
 public  record  UsuarioUpdateDto(
 
 string  Nome,

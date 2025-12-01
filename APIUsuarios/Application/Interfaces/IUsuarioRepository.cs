@@ -1,3 +1,4 @@
+using APIUsuarios.Domain.Entities;
 public interface IUsuarioRepository
 {
     Task<IEnumerable<Usuario>> GetAllAsync(CancellationToken ct);

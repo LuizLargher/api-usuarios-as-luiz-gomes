@@ -1,0 +1,20 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "[!A]*/**": true,
+        "A[!P]*/**": true,
+        "AP[!I]*/**": true,
+        "API[!U]*/**": true,
+        "APIU[!s]*/**": true,
+        "APIUs[!u]*/**": true,
+        "APIUsu[!a]*/**": true,
+        "APIUsua[!r]*/**": true,
+        "APIUsuar[!i]*/**": true,
+        "APIUsuari[!o]*/**": true,
+        "APIUsuario[!s]*/**": true
+    }
+}
