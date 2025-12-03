@@ -1,5 +1,5 @@
 namespace APIUsuarios.Application.Services;
-
+using APIUsuarios.Application.Interfaces;
 using APIUsuarios.Domain.Entities;
 using APIUsuarios.Infrastructure.Persistence;
 using Application.Dto;
@@ -18,7 +18,7 @@ public class UsuarioService : IUsuarioService
     public async Task<IEnumerable<UsuarioReadDto>> ListarAsync(CancellationToken ct = default)
     {
         var usuarios = await _repo.GetAllAsync(ct);
-        return usuarios.Select(u => u.ToReadDto());
+        return usuarios.Select(u => MapToReadDto(u));
     }
 
     public async Task<UsuarioReadDto?> ObterAsync(int id, CancellationToken ct = default)
@@ -35,34 +35,29 @@ public class UsuarioService : IUsuarioService
             return null;
         }
 
-        var produtoDTO = MappingExtensions.ToReadDto(usuario);
+        var entityDto = MappingExtensions.ToReadDto(usuario);
 
-        return produtoDTO;
+        return entityDto;
     }
 
     public async Task<UsuarioReadDto> CriarAsync(UsuarioCreateDto user, CancellationToken ct = default)
     {
         if (await EmailJaCadastradoAsync(user.Email, ct))
-            throw new Exception("E-mail já cadastrado.");
+            throw new Exception("Email já cadastrado.");
 
-        var usuario = new Usuario
+        var entity = new Usuario
         {
             Nome = user.Nome,
             Email = user.Email,
-            Senha = user.Senha,
             DataCriacao = DateTime.UtcNow
         };
 
-        await _context.Usuario.AddAsync(usuario, ct);
-        await _context.SaveChangesAsync(ct);
+        await _repo.AddAsync(entity, ct);
+        await _repo.SaveChangesAsync(ct);
 
-        return new UsuarioReadDto
-        {
-            Id = usuario.Id,
-            Nome = usuario.Nome,
-            Email = usuario.Email,
-            DataCriacao = usuario.DataCriacao
-        };
+        var entityDto = MappingExtensions.ToReadDto(entity);
+
+        return entityDto;
     }
 
     public async Task<UsuarioReadDto> AtualizarAsync(int id, UsuarioUpdateDto dto, CancellationToken ct = default)
@@ -73,6 +68,7 @@ public class UsuarioService : IUsuarioService
         }
 
         var usuario = await _repo.GetByIdAsync(id, ct);
+        
         if (usuario == null)
         {
             throw new KeyNotFoundException("Erro! Usuário não encontrado.");
@@ -88,7 +84,9 @@ public class UsuarioService : IUsuarioService
         await _repo.UpdateAsync(usuario, ct);
         await _repo.SaveChangesAsync(ct);
 
-        return usuario.ToReadDto();
+        var entityDto = MappingExtensions.ToReadDto(usuario);
+
+        return entityDto;
     }
 
     public async Task<bool> EmailExistsAsync(string email, CancellationToken ct = default)
@@ -118,5 +116,10 @@ public class UsuarioService : IUsuarioService
         await _repo.SaveChangesAsync(ct);
 
         return true;
+    }
+
+    private static UsuarioReadDto MapToReadDto(Usuario u)
+    {
+        return new UsuarioReadDto(u.Id, u.Nome, u.Email, u.DataNascimento, u.Telefone, u.Ativo, u.DataCriacao);
     }
 }

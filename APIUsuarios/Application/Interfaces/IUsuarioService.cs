@@ -1,4 +1,6 @@
 using APIUsuarios.Application.Dto;
+namespace APIUsuarios.Application.Interfaces;
+
 public interface IUsuarioService
 {
 
