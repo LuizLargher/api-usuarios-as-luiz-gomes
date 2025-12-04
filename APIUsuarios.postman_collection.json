@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "c35b8aff-9954-4c4e-a8ea-748320ce3961",
+		"name": "APIUsuarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48586939",
+		"_collection_link": "https://luizlargher-7826162.postman.co/workspace/C%2523DOTNET-RESTAPI~f038981e-33a8-4004-9327-287a2245a9f6/collection/48586939-c35b8aff-9954-4c4e-a8ea-748320ce3961?action=share&source=collection_link&creator=48586939"
+	},
+	"item": [
+		{
+			"name": "Lista todos os usuários",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5089/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5089",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busca usuário por ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5089/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5089",
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cria novo usuário",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Luiz\",\r\n  \"email\": \"luiz@example.com\",\r\n  \"senha\": \"123456\",\r\n  \"dataNascimento\": \"2000-05-10\",\r\n  \"telefone\": \"11999999999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5089/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5089",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualiza usuário completo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Luiz Atualizado\",\r\n  \"email\": \"segundoemaildoluiz@example.com\",\r\n  \"senha\": \"123456\",\r\n  \"dataNascimento\": \"2000-05-10\",\r\n  \"telefone\": \"11999999999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5089/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5089",
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove usuário",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nome\": \"Luiz\",\r\n  \"email\": \"luiz@example.com\",\r\n  \"senha\": \"123456\",\r\n  \"dataNascimento\": \"2000-05-10\",\r\n  \"telefone\": \"11999999999\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5089/usuarios/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5089",
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

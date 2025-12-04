@@ -45,14 +45,17 @@ app.MapPost("/usuarios", async (UsuarioCreateDto dto, IUsuarioService service, C
     }
     catch (ValidationException ex)
     {
-
         return Results.BadRequest(ex.Errors);
     }
-    catch (Exception ex)
+    catch (ArgumentException ex)
     {
-
-        return Results.BadRequest(new { error = ex.Message });
+        return Results.Conflict(new { error = ex.Message });
     }
+    catch (Exception)
+    {
+        return Results.StatusCode(500);
+    }
+
 });
 
 app.MapPut("/usuarios/{id}", async (int id, UsuarioUpdateDto dto, IUsuarioService service, CancellationToken ct) =>
@@ -86,7 +89,7 @@ app.MapDelete("/usuarios/{id}", async (int id, IUsuarioService service, Cancella
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
+    await db.Database.MigrateAsync();
 }
 
-app.Run();
+await app.RunAsync();

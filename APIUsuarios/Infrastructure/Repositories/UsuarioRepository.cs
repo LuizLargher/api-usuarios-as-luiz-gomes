@@ -41,7 +41,7 @@ public class UsuarioRepository : IUsuarioRepository
 
     public Task RemoveAsync(Usuario usuario, CancellationToken ct = default)
     {
-        _context.Usuario.Remove(usuario);
+        usuario.Ativo = false;
         return Task.CompletedTask;
     }
 
